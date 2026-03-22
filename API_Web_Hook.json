@@ -1,0 +1,171 @@
+{
+  "name": "API_Web_Hook",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "data",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2c39124a-21ad-40c5-b63e-ab2bdec62038",
+      "name": "Webhook",
+      "webhookId": "07c83343-3795-4450-825c-19857c862d16",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1e9AsGdIejA5rME6dxWIktjUNVWEQUe6o3grmjOvCe8o",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e9AsGdIejA5rME6dxWIktjUNVWEQUe6o3grmjOvCe8o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2024835313,
+          "mode": "list",
+          "cachedResultName": "ฟอร์มลงทะเบียน",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e9AsGdIejA5rME6dxWIktjUNVWEQUe6o3grmjOvCe8o/edit#gid=2024835313"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "577823fd-31a5-4811-9785-2da5dc024a47",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "it3A6wHVJ6u7m0jG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ccee220f-2c10-4111-a3a2-52b1e162d378",
+              "name": "tdate",
+              "value": "={{ $json['ประทับเวลา'] }}",
+              "type": "string"
+            },
+            {
+              "id": "c64c1e7a-8f1e-4eaa-a110-e9bbb3f072fa",
+              "name": "id",
+              "value": "={{ $json[\"รหัสนักศึกษา\"] }}",
+              "type": "number"
+            },
+            {
+              "id": "7184dc9c-9f4c-4e39-8600-80976ce528f4",
+              "name": "fullname",
+              "value": "={{ $json[\"ชื่อ-นามสกุล\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "3adaa3c3-ade9-4587-a6a3-4a99f1379cce",
+              "name": "department",
+              "value": "={{ $json[\"คณะ\"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "74419cf9-328e-4f9a-a784-9010dbdc0dbc",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        624,
+        0
+      ],
+      "id": "08e9d224-2de6-4ffc-a654-b00457668266",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "content": "67708920 \nNattawat Sommit\n\nแบบฝึกหัด 4 การใช้งาน API+n8n+google sheets"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        16,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "c878ad33-c2b8-4c74-8b5d-988439085def",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "dbb5290c-5eb8-46d1-8010-72563004a9ec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9d0970cad8b329e4938d7e94c425b52d6a6f0bec32d1d608cd115a8e69a7fe26"
+  },
+  "id": "IYWuINeMNaiebMal",
+  "tags": []
+}

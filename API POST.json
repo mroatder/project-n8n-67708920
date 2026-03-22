@@ -1,0 +1,340 @@
+{
+  "name": "API POST",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "data",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9c994aed-74ed-4db1-9494-5502c1617fbb",
+      "name": "Webhook",
+      "webhookId": "e50e7c6a-eb61-4816-b06b-48152fb08577"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bb3dca5e-b0b3-4b24-8f90-6df52ccbc360",
+              "name": "tdate",
+              "value": "={{ $json.body.Timestamp }}",
+              "type": "string"
+            },
+            {
+              "id": "95da9074-7da8-45d8-a3f4-0f58713f0b34",
+              "name": "id",
+              "value": "={{ $json.body[\"รหัสนักศึกษา\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "c190b0bb-56e2-47e7-8a4a-deee74f0fa5b",
+              "name": "fullname",
+              "value": "={{ $json.body[\"ชื่อ-นามสกุล (ภาษาไทย)\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "35597053-31e8-4f24-a3f0-9dbe954e2d5d",
+              "name": "department",
+              "value": "={{ $json.body[\"คณะ\"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "f7d4e26d-7372-4617-9efc-ca1fda3d6142",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b1da4e38-effd-414e-aee6-9d0cfd5d8ddb",
+              "leftValue": "={{ $json.tdate }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5553cb99-ec13-414f-898f-87a27fa372c9",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "e7345f18-dd3a-413d-a598-640ad50be413",
+              "leftValue": "={{ $json.fullname }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "25325c12-8b3e-4968-a2fc-bbb602005cc8",
+              "leftValue": "={{ $json.department }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "dd7dab66-ff30-4c6e-b5d2-f7137bf27c7e",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1e9AsGdIejA5rME6dxWIktjUNVWEQUe6o3grmjOvCe8o",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e9AsGdIejA5rME6dxWIktjUNVWEQUe6o3grmjOvCe8o/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2024835313,
+          "mode": "list",
+          "cachedResultName": "ฟอร์มลงทะเบียน",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1e9AsGdIejA5rME6dxWIktjUNVWEQUe6o3grmjOvCe8o/edit#gid=2024835313"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ประทับเวลา": "={{ $json.tdate }}",
+            "รหัสนักศึกษา": "={{ $json.id }}",
+            "ชื่อ-นามสกุล": "={{ $json.fullname }}",
+            "คณะ": "={{ $json.department }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ประทับเวลา",
+              "displayName": "ประทับเวลา",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "รหัสนักศึกษา",
+              "displayName": "รหัสนักศึกษา",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ชื่อ-นามสกุล",
+              "displayName": "ชื่อ-นามสกุล",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "คณะ",
+              "displayName": "คณะ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        -96
+      ],
+      "id": "f7ba7e80-8fd5-40e6-ace5-eaeb88776f90",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "it3A6wHVJ6u7m0jG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "nattawat.six@gmail.com",
+        "subject": "ข้อมูลลงทะเบียน",
+        "emailType": "text",
+        "message": "=วันที่ลงทะเบียน : {{ $json[\"ประทับเวลา\"] }}\nรหัสนักศึกษา : {{ $json[\"รหัสนักศึกษา\"] }}\nชื่อ-นามสกุล : {{ $json[\"ชื่อ-นามสกุล\"] }}\nคณะ : {{ $json[\"คณะ\"] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        832,
+        -96
+      ],
+      "id": "ffef8e1f-37a4-4337-8ea6-07ae84feac24",
+      "name": "Send a message",
+      "webhookId": "5b4c9884-2816-48ae-9d18-4e5319531735",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "6bVWIZ6GMyNA4olw",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1040,
+        -96
+      ],
+      "id": "a49f56a8-3ba4-41eb-a49d-83877edb2a20",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        624,
+        96
+      ],
+      "id": "d836698d-061a-4a80-a099-26ddff00f981",
+      "name": "Respond to Webhook1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "5f5989fa-4605-46e9-94b4-bb55568259c4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9d0970cad8b329e4938d7e94c425b52d6a6f0bec32d1d608cd115a8e69a7fe26"
+  },
+  "id": "DrlBJn2fB4g5mwfV",
+  "tags": []
+}

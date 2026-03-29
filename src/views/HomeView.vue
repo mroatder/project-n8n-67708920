@@ -85,7 +85,7 @@ const submitForm = async () => {
     status.message = "";
 
     try {
-        const response = await fetch("http://localhost:5678/webhook/data", {
+        const response = await fetch("http://localhost:5678/webhook/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
